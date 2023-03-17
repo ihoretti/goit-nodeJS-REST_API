@@ -4,17 +4,6 @@ const cors = require("cors");
 
 const contactsRouter = require("./routes/api/contacts");
 
-const mongoose = require("mongoose");
-
-const DB_HOST =
-  "mongodb+srv://ihoretti:MYdpCGTvbEwmHDAx@cluster0.aav3qon.mongodb.net/contacts_reader?retryWrites=true&w=majority";
-mongoose.set("strictQuery", true);
-
-mongoose
-  .connect(DB_HOST)
-  .then(() => console.log("Database connect success"))
-  .catch((error) => console.log(error.message));
-
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
