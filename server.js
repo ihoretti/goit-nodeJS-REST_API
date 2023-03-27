@@ -9,7 +9,7 @@ mongoose.set("strictQuery", true);
 const start = async () => {
   try {
     if (!DB_HOST) {
-      throw new Error("HOST_DB not set!");
+      throw new Error("DB_HOST not set!");
     }
 
     await mongoose.connect(DB_HOST);
