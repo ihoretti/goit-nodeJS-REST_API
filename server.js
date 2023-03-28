@@ -2,7 +2,15 @@ const app = require("./app");
 
 const mongoose = require("mongoose");
 
-const { DB_HOST, PORT } = require("./config");
+const path = require("path");
+const { createFolderIsNotExist } = require("./helpers");
+
+const {
+  DB_HOST,
+  PORT,
+  UPLOAD_DIR_TMP,
+  UPLOAD_DIR_AVATARS,
+} = require("./config");
 
 mongoose.set("strictQuery", true);
 
@@ -14,6 +22,12 @@ const start = async () => {
 
     await mongoose.connect(DB_HOST);
     console.log("Database connection successful");
+
+    await createFolderIsNotExist(path.join(__dirname, "./", UPLOAD_DIR_TMP));
+    await createFolderIsNotExist(
+      path.join(__dirname, "./", UPLOAD_DIR_AVATARS)
+    );
+
     app.listen(PORT, () => {
       console.log(`Server running. Use our API on port: ${PORT}`);
     });

@@ -7,8 +7,9 @@ const {
   signup,
   getCurrent,
   subscriptionStatusUpdate,
+  avatarUpdate,
 } = require("../../controllers/auth.controller");
-const { validation, auth } = require("../../middleware");
+const { validation, auth, upload } = require("../../middleware");
 const {
   userAuthSchema,
   subscriptionStatusSchema,
@@ -25,6 +26,12 @@ router.patch(
   auth,
   validation(subscriptionStatusSchema),
   tryCatchWrapper(subscriptionStatusUpdate)
+);
+router.patch(
+  "/avatars",
+  auth,
+  tryCatchWrapper(upload.single("avatar")),
+  tryCatchWrapper(avatarUpdate)
 );
 
 module.exports = router;
